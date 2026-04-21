@@ -36,9 +36,9 @@ warnings.filterwarnings('ignore')
 try:
     from transformers import pipeline as hf_pipeline
     HAS_TRANSFORMERS = True
-except ImportError:
+except Exception:
     HAS_TRANSFORMERS = False
-    print("⚠️ transformers non installé. Détection Fake News en mode TF-IDF uniquement.")
+    print("⚠️ transformers non disponible. Détection Fake News en mode TF-IDF uniquement.")
 
 try:
     import shap

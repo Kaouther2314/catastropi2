@@ -161,13 +161,13 @@
         }
 
         .btn-outline {
-            background: white;
-            border: 1px solid var(--border-color);
-            color: var(--text-dark);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .btn-outline:hover {
-            background: var(--bg-body);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .form-group {
@@ -180,21 +180,23 @@
             margin-bottom: 8px;
             font-weight: 600;
             font-size: 14px;
-            color: var(--text-dark);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .form-control {
             width: 100%;
             padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            background: white;
-            color: var(--text-dark);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 15px;
+            backdrop-filter: blur(8px);
         }
 
         .form-control:focus {
-            border-color: var(--primary);
+            border-color: rgba(114, 184, 142, 0.5);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Toasts */
@@ -210,16 +212,20 @@
         }
 
         .toast {
-            background: white;
+            background: rgba(20, 30, 22, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 16px 24px;
-            border-radius: var(--radius-sm);
-            border-left: 4px solid var(--primary);
+            border-radius: 14px;
+            border-left: 4px solid #72b88e;
             font-weight: 600;
             font-size: 14px;
             display: flex;
             align-items: center;
             gap: 14px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .toast.error {
@@ -908,30 +914,46 @@
         .dash-layout {
             display: flex;
             flex: 1;
-            background: var(--bg-body);
+            background: transparent;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* WebGL canvas background for dashboard */
+        #canvas-dash-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .dash-sidebar {
             width: 260px;
-            background: white;
-            border-right: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-right: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             flex-direction: column;
             position: fixed;
             inset: 0;
             z-index: 100;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
         }
 
         .dash-logo {
             padding: 24px;
             font-weight: 900;
             font-size: 20px;
-            color: var(--primary);
+            color: #72b88e;
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .dash-nav {
@@ -944,9 +966,9 @@
 
         .dash-nav-item {
             padding: 12px 16px;
-            border-radius: var(--radius-sm);
+            border-radius: 12px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: rgba(255, 255, 255, 0.75);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -957,58 +979,71 @@
         }
 
         .dash-nav-item:hover {
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         .dash-nav-item.active {
-            color: var(--primary);
-            background: rgba(45, 90, 63, 0.1);
-            border-color: rgba(45, 90, 63, 0.2);
+            color: #72b88e;
+            background: rgba(114, 184, 142, 0.12);
+            border-color: rgba(114, 184, 142, 0.25);
         }
 
         .dash-main {
             flex: 1;
             padding: 40px 5%;
             margin-left: 260px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* TABLES & CARDS */
+        /* TABLES & CARDS — GLASSMORPHISM */
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         th {
             padding: 16px;
             font-size: 12px;
             font-weight: 900;
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.55);
             text-transform: uppercase;
             text-align: left;
-            background: var(--bg-card);
-            border-bottom: 2px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         td {
             padding: 16px;
             font-size: 14px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .btn-act {
             padding: 8px 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
             border: none;
             margin-right: 6px;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s ease;
+        }
+
+        .btn-act:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .card-grid {
@@ -1018,21 +1053,31 @@
         }
 
         .stat-card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         .stat-num {
             font-size: 32px;
             font-weight: 900;
-            color: var(--primary);
+            color: #72b88e;
             margin-bottom: 8px;
             line-height: 1;
         }
@@ -1040,7 +1085,7 @@
         .stat-text {
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-muted);
+            color: rgba(255, 255, 255, 0.45);
             text-transform: uppercase;
         }
 
@@ -1048,6 +1093,8 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 2000;
             display: flex;
             align-items: center;
@@ -1057,36 +1104,45 @@
         }
 
         .modal-card {
-            background: white;
+            background: rgba(20, 30, 22, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 30px;
-            border-radius: var(--radius-lg);
+            border-radius: 24px;
             width: 100%;
             max-width: 700px;
             max-height: 90vh;
             overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0.85);
         }
 
         .modal-header {
             font-weight: 800;
             font-size: 22px;
-            color: var(--primary);
+            color: #72b88e;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
         }
 
         #map-container {
             height: 400px;
             width: 100%;
-            border-radius: var(--radius);
-            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
         .chart-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 20px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         /* FLOATING SIGNALER BUTTON + MODAL */
@@ -1532,23 +1588,25 @@
 
     <!-- MAIN DASHBOARD SYSTEM -->
     <div id="page-dashboard" class="view-page">
+        <canvas id="canvas-dash-bg"></canvas>
         <div class="dash-layout">
             <aside class="dash-sidebar">
-                <div class="dash-logo" onclick="navigateTo('page-home')"><svg class="icon">
+                <div class="dash-logo" onclick="navigateTo('page-home')"><svg class="icon" style="color:#72b88e;">
                         <path d="M12 2L2 22h20L12 2z" />
                     </svg> CATASTROPI</div>
                 <nav class="dash-nav" id="dash-nav"></nav>
-                <div style="padding:20px; border-top:1px solid var(--border-color); text-align:center;">
-                    <div style="font-weight:900;" id="auth-name">User</div>
-                    <div style="color:var(--primary); font-size:12px; font-weight:800; margin-bottom:12px;"
-                        id="auth-role">ROLE</div>
+                <div style="padding:20px; border-top:1px solid rgba(255,255,255,0.08); text-align:center;">
+                    <div style="font-weight:900; color:rgba(255,255,255,0.9);" id="auth-name">User</div>
+                    <div style="color:#72b88e; font-size:12px; font-weight:800; margin-bottom:12px;" id="auth-role">ROLE
+                    </div>
                     <button class="btn btn-outline" style="width:100%; font-size:13px;"
                         onclick="doLogout()">Déconnexion</button>
                 </div>
             </aside>
             <main class="dash-main">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-                    <h2 id="dash-title" style="font-size:28px; font-weight:900;">Tableau de bord</h2>
+                    <h2 id="dash-title" style="font-size:28px; font-weight:900; color:rgba(255,255,255,0.9);">Tableau de
+                        bord</h2>
                     <button class="btn btn-outline" onclick="fetchNotifications(true)">Notifications <span
                             id="notif-badge"
                             style="background:var(--danger); color:white; padding:2px 6px; border-radius:10px; font-size:11px; margin-left:4px;">0</span></button>
@@ -2025,6 +2083,109 @@
             document.querySelectorAll('.view-page').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             if (id === 'page-login') initLoginCanvas();
+            if (id === 'page-dashboard') initDashCanvas();
+        }
+
+        // WebGL Smokey Background for Dashboard
+        function initDashCanvas() {
+            const canvas = document.getElementById('canvas-dash-bg');
+            if (!canvas) return;
+            if (window._dashCanvasActive) return; // Already initialized
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) return;
+
+            const vsSource = `
+                attribute vec2 position;
+                void main() {
+                    gl_Position = vec4(position, 0.0, 1.0);
+                }
+            `;
+
+            const fsSource = `
+                precision highp float;
+                uniform vec2 u_resolution;
+                uniform float u_time;
+                uniform vec2 u_mouse;
+
+                void mainImage(out vec4 fragColor, in vec2 fragCoord){
+                    vec2 uv = fragCoord / u_resolution;
+                    vec2 centeredUV = (2.0 * fragCoord - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+
+                    float time = u_time * 0.35;
+
+                    vec2 mouse = u_mouse / u_resolution;
+                    vec2 rippleCenter = 2.0 * mouse - 1.0;
+
+                    vec2 distortion = centeredUV;
+                    for (float i = 1.0; i < 8.0; i++) {
+                        distortion.x += 0.5 / i * cos(i * 2.0 * distortion.y + time + rippleCenter.x * 3.1415);
+                        distortion.y += 0.5 / i * cos(i * 2.0 * distortion.x + time + rippleCenter.y * 3.1415);
+                    }
+
+                    float wave = abs(sin(distortion.x + distortion.y + time));
+                    float glow = smoothstep(0.9, 0.2, wave);
+
+                    vec3 u_color = vec3(0.025, 0.075, 0.048);
+                    fragColor = vec4(u_color * glow, 1.0);
+                }
+
+                void main() {
+                    mainImage(gl_FragColor, gl_FragCoord.xy);
+                }
+            `;
+
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                return shader;
+            }
+
+            const program = gl.createProgram();
+            gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, vsSource));
+            gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, fsSource));
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+            const posAttrib = gl.getAttribLocation(program, "position");
+            gl.enableVertexAttribArray(posAttrib);
+            gl.vertexAttribPointer(posAttrib, 2, gl.FLOAT, false, 0, 0);
+
+            const resUniform = gl.getUniformLocation(program, "u_resolution");
+            const timeUniform = gl.getUniformLocation(program, "u_time");
+            const mouseUniform = gl.getUniformLocation(program, "u_mouse");
+
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+
+            const onMouseMove = (e) => {
+                mouseX = e.clientX;
+                mouseY = window.innerHeight - e.clientY;
+            };
+            window.addEventListener('mousemove', onMouseMove);
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.uniform2f(resUniform, canvas.width, canvas.height);
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let startTime = Date.now();
+            function render() {
+                gl.uniform1f(timeUniform, (Date.now() - startTime) / 1000.0);
+                gl.uniform2f(mouseUniform, mouseX, mouseY);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                requestAnimationFrame(render);
+            }
+            render();
+            window._dashCanvasActive = true;
         }
 
 
@@ -2090,7 +2251,7 @@
             if (event && event.currentTarget) event.currentTarget.classList.add('active');
 
             const c = document.getElementById('dash-content');
-            c.innerHTML = '<div style="text-align:center; padding:50px; color:var(--text-muted); font-weight:800;">Acquisition en cours...</div>';
+            c.innerHTML = '<div style="text-align:center; padding:50px; color:rgba(255,255,255,0.4); font-weight:800;">Acquisition en cours...</div>';
 
             if (globalMap) { globalMap.remove(); globalMap = null; }
             if (globalChart) { globalChart.destroy(); globalChart = null; }
@@ -2132,7 +2293,7 @@
         }
         function addNavBtn(text, fn) {
             const btn = document.createElement('div'); btn.className = 'dash-nav-item';
-            btn.innerHTML = '<svg class="icon-sm"><path d="M9 18l6-6-6-6"/></svg> ' + text;
+            btn.innerHTML = '<svg class="icon-sm" style="color:rgba(255,255,255,0.5)"><path d="M9 18l6-6-6-6"/></svg> ' + text;
             btn.onclick = fn; document.getElementById('dash-nav').appendChild(btn);
         }
 
@@ -2247,34 +2408,35 @@
                 const pending = cats.filter(c => c.statut === 'SIGNALEE');
                 const validated = cats.filter(c => c.statut === 'Valide par IA' || c.statut === 'ANALYSE');
 
-                let html = '<h3 style="margin-bottom:15px; margin-top:0;">📋 Validation des Signalements — Pre-Analyse IA Automatique</h3>';
+                let html = '<h3 style="margin-bottom:15px; margin-top:0; color:rgba(255,255,255,0.9);">📋 Validation des Signalements — Pre-Analyse IA Automatique</h3>';
 
                 if (!pending.length) {
-                    html += '<div style="padding:40px; text-align:center; background:white; border-radius:12px; border:1px solid var(--border-color);"><div style="font-size:48px; margin-bottom:12px;">✅</div><div style="font-weight:800; font-size:18px; color:var(--primary);">Aucun signalement en attente</div><div style="font-size:13px; color:var(--text-muted); margin-top:8px;">Tous les signalements ont ete traites.</div></div>';
+                    html += '<div style="padding:40px; text-align:center; background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); border-radius:16px; border:1px solid rgba(255,255,255,0.1);"><div style="font-size:48px; margin-bottom:12px;">✅</div><div style="font-weight:800; font-size:18px; color:#72b88e;">Aucun signalement en attente</div><div style="font-size:13px; color:rgba(255,255,255,0.4); margin-top:8px;">Tous les signalements ont ete traites.</div></div>';
                 } else {
                     // Build the table with loading placeholders
-                    html += '<div style="overflow-x:auto; margin-bottom:40px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.06); border:1px solid var(--border-color);">';
-                    html += '<table style="width:100%; border-collapse:collapse; background:white;">';
-                    html += '<thead><tr style="background:linear-gradient(135deg, var(--bg-card), #e8ede9); border-bottom:2px solid var(--primary);">';
+                    html += '<div style="overflow-x:auto; margin-bottom:40px; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.15); border:1px solid rgba(255,255,255,0.1);">';
+                    html += '<table style="width:100%; border-collapse:collapse; background:rgba(255,255,255,0.04);">';
+                    html += '<thead><tr style="background:rgba(255,255,255,0.06); border-bottom:1px solid rgba(114,184,142,0.3);">';
                     html += '<th style="padding:16px; font-size:12px;">TICKET</th>';
-                    html += '<th style="padding:16px; font-size:12px;">TYPE</th>';
-                    html += '<th style="padding:16px; font-size:12px;">LOCALISATION</th>';
-                    html += '<th style="padding:16px; font-size:12px;">DATE</th>';
-                    html += '<th style="padding:16px; font-size:12px;">SCORE IA</th>';
-                    html += '<th style="padding:16px; font-size:12px;">RECOMMANDATION IA</th>';
-                    html += '<th style="padding:16px; font-size:12px; text-align:center;">ACTION</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6);">TICKET</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6);">TYPE</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6);">LOCALISATION</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6);">DATE</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6);">SCORE IA</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6);">RECOMMANDATION IA</th>';
+                    html += '<th style="padding:16px; font-size:12px; color:rgba(255,255,255,0.6); text-align:center;">ACTION</th>';
                     html += '</tr></thead><tbody>';
 
                     pending.forEach(c => {
-                        html += '<tr id="row-signal-' + c.id + '" style="border-bottom:1px solid var(--border-color); transition:background 0.2s;" onmouseover="this.style.background=\'#f8fdf9\'" onmouseout="this.style.background=\'white\'">';
-                        html += '<td style="padding:16px; font-weight:900; color:var(--primary);">#' + c.id + '</td>';
-                        html += '<td style="padding:16px; font-weight:700;">' + c.type + '</td>';
-                        html += '<td style="padding:16px;">' + c.zone + ' <span style="color:var(--text-muted); font-size:12px;">(' + c.localisation + ')</span></td>';
-                        html += '<td style="padding:16px; font-size:12px; color:var(--text-muted);">' + new Date(c.date_declaration).toLocaleDateString() + '</td>';
+                        html += '<tr id="row-signal-' + c.id + '" style="border-bottom:1px solid rgba(255,255,255,0.06); transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.04)\'" onmouseout="this.style.background=\'transparent\'">';
+                        html += '<td style="padding:16px; font-weight:900; color:#72b88e;">#' + c.id + '</td>';
+                        html += '<td style="padding:16px; font-weight:700; color:rgba(255,255,255,0.85);">' + c.type + '</td>';
+                        html += '<td style="padding:16px; color:rgba(255,255,255,0.75);">' + c.zone + ' <span style="color:rgba(255,255,255,0.4); font-size:12px;">(' + c.localisation + ')</span></td>';
+                        html += '<td style="padding:16px; font-size:12px; color:rgba(255,255,255,0.4);">' + new Date(c.date_declaration).toLocaleDateString() + '</td>';
                         // Score IA cell - starts as loading
-                        html += '<td style="padding:16px;" id="score-cell-' + c.id + '"><div style="display:flex;align-items:center;gap:8px;"><div class="spinner" style="font-size:14px;">⏳</div><span style="font-size:12px;color:var(--text-muted);">Analyse...</span></div></td>';
+                        html += '<td style="padding:16px;" id="score-cell-' + c.id + '"><div style="display:flex;align-items:center;gap:8px;"><div class="spinner" style="font-size:14px;">⏳</div><span style="font-size:12px;color:rgba(255,255,255,0.4);">Analyse...</span></div></td>';
                         // Recommandation cell - starts as loading
-                        html += '<td style="padding:16px;" id="reco-cell-' + c.id + '"><span style="font-size:12px;color:var(--text-muted);">En cours...</span></td>';
+                        html += '<td style="padding:16px;" id="reco-cell-' + c.id + '"><span style="font-size:12px;color:rgba(255,255,255,0.4);">En cours...</span></td>';
                         // Action cell
                         html += '<td style="padding:16px; text-align:center;">';
                         html += '<div style="display:flex;flex-direction:column;gap:6px;align-items:center;">';
@@ -2290,11 +2452,11 @@
                 }
 
                 // Section validees
-                html += '<h3 style="margin-bottom:15px; margin-top:10px;">✅ Signalements Valides (En attente de publication)</h3>';
+                html += '<h3 style="margin-bottom:15px; margin-top:10px; color:rgba(255,255,255,0.9);">✅ Signalements Valides (En attente de publication)</h3>';
                 html += '<div class="card-grid" style="grid-template-columns:1fr;">';
-                if (!validated.length) html += '<div style="padding:30px; text-align:center; background:white; border-radius:8px; border:1px solid var(--border-color); color:var(--text-muted);">Aucune catastrophe validee en attente de publication.</div>';
+                if (!validated.length) html += '<div style="padding:30px; text-align:center; background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); border-radius:16px; border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.4);">Aucune catastrophe validee en attente de publication.</div>';
                 validated.forEach(c => {
-                    html += '<div style="background:white; border:1px solid var(--border-color); padding:20px; border-radius:var(--radius); display:flex; justify-content:space-between; align-items:center; border-left:4px solid var(--primary);"><div><div><b style="font-size:18px;">' + c.type + '</b> — <span style="color:var(--text-muted)">' + c.zone + ' (' + c.localisation + ')</span></div><div style="margin-top:6px;">Niveau Risque: <b style="color:var(--danger)">' + (c.niveau_risque || '?') + '</b> — Victimes est.: ' + (c.estimation_victimes || '?') + '</div></div><button class="btn btn-primary" onclick="respPublier(' + c.id + ')">Valider & Publier ALERTE</button></div>';
+                    html += '<div style="background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:16px; display:flex; justify-content:space-between; align-items:center; border-left:4px solid #72b88e; color:rgba(255,255,255,0.85);"><div><div><b style="font-size:18px; color:rgba(255,255,255,0.9);">' + c.type + '</b> — <span style="color:rgba(255,255,255,0.5)">' + c.zone + ' (' + c.localisation + ')</span></div><div style="margin-top:6px;">Niveau Risque: <b style="color:var(--danger)">' + (c.niveau_risque || '?') + '</b> — Victimes est.: ' + (c.estimation_victimes || '?') + '</div></div><button class="btn btn-primary" onclick="respPublier(' + c.id + ')">Valider & Publier ALERTE</button></div>';
                 });
                 html += '</div>';
 
@@ -2729,7 +2891,7 @@
                 const cats = await api('/catastrophes?statut=PUBLIEE');
                 let html = '<div class="card-grid" style="grid-template-columns:1fr;">';
                 cats.forEach(c => {
-                    html += '<div style="background:white; border:1px solid var(--border-color); padding:20px; border-radius:var(--radius); border-left:4px solid var(--primary);"><div style="display:flex; justify-content:space-between; margin-bottom:15px;"><div><b style="font-size:22px;">#' + c.id + ' - ' + c.type + '</b> — <span style="background:var(--danger); color:white; padding:2px 8px; border-radius:10px; font-size:12px;">Risque: ' + c.niveau_risque + '</span></div><div><button class="btn-act" onclick="respEditCat(' + c.id + ')">Modifier</button><button class="btn-act" style="background:#1d3557; color:white;" onclick="downloadPDF(' + c.id + ')">Export PDF</button></div></div><div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:14px;"><div><b>Details:</b> ' + c.zone + ' - ' + c.localisation + '<br><b>Bilan:</b> ' + c.nb_victimes + ' Victime(s) sur le terrain (Est. max: ' + (c.estimation_victimes || 0) + ')<br><b>Rapport:</b> ' + c.description + '<br><b>Missions Agent Actives:</b> ' + c.agents_assignes.length + ' agent(s)<br><b>Ressources Assignees:</b> ' + c.ressources_assignees.length + ' plot(s)</div><div style="text-align:right"><button class="btn btn-outline" style="margin-bottom:8px; width:200px;" onclick="respAssignAgent(' + c.id + ')">+ Connecter Agent</button><br><button class="btn btn-outline" style="width:200px;" onclick="respAssignRessource(' + c.id + ')">+ Envoyer Ressource</button><br><button class="btn btn-outline" style="width:200px; margin-top:8px;" onclick="agentShowVictimes(' + c.id + ')">Voir Victimes</button></div></div></div>';
+                    html += '<div style="background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:16px; border-left:4px solid #72b88e; color:rgba(255,255,255,0.85);"><div style="display:flex; justify-content:space-between; margin-bottom:15px;"><div><b style="font-size:22px; color:rgba(255,255,255,0.9);">#' + c.id + ' - ' + c.type + '</b> — <span style="background:var(--danger); color:white; padding:2px 8px; border-radius:10px; font-size:12px;">Risque: ' + c.niveau_risque + '</span></div><div><button class="btn-act" style="background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8);" onclick="respEditCat(' + c.id + ')">Modifier</button><button class="btn-act" style="background:rgba(29,53,87,0.6); color:white;" onclick="downloadPDF(' + c.id + ')">Export PDF</button></div></div><div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:14px;"><div><b>Details:</b> ' + c.zone + ' - ' + c.localisation + '<br><b>Bilan:</b> ' + c.nb_victimes + ' Victime(s) sur le terrain (Est. max: ' + (c.estimation_victimes || 0) + ')<br><b>Rapport:</b> ' + c.description + '<br><b>Missions Agent Actives:</b> ' + c.agents_assignes.length + ' agent(s)<br><b>Ressources Assignees:</b> ' + c.ressources_assignees.length + ' plot(s)</div><div style="text-align:right"><button class="btn btn-outline" style="margin-bottom:8px; width:200px;" onclick="respAssignAgent(' + c.id + ')">+ Connecter Agent</button><br><button class="btn btn-outline" style="width:200px;" onclick="respAssignRessource(' + c.id + ')">+ Envoyer Ressource</button><br><button class="btn btn-outline" style="width:200px; margin-top:8px;" onclick="agentShowVictimes(' + c.id + ')">Voir Victimes</button></div></div></div>';
                 });
                 container.innerHTML = html + '</div>';
             } catch (e) { }
@@ -2740,7 +2902,7 @@
             try {
                 const besoins = await api('/besoins');
                 let html = '<h3 style="margin-top:0;margin-bottom:20px;">Demandes de Besoins des Agents</h3>';
-                if (!besoins.length) html += '<p style="padding:20px; text-align:center; background:white; border-radius:8px;">Aucun besoin en attente.</p>';
+                if (!besoins.length) html += '<p style="padding:20px; text-align:center; background:rgba(255,255,255,0.06); border-radius:16px; border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.5);">Aucun besoin en attente.</p>';
                 else {
                     html += '<table><thead><tr><th>Agent</th><th>Type</th><th>Quantite</th><th>Urgence</th><th>Date</th><th>Actions</th></tr></thead><tbody>';
                     besoins.forEach(b => {
@@ -2825,15 +2987,15 @@
 
                 let html = '<div style="margin-bottom:20px;"><button class="btn btn-primary" onclick="document.querySelector(\'.dash-nav-item.active\').click()">Actualiser Missions</button></div><div style="display:flex; gap:20px;"><div style="flex:1;"><h3 style="margin-top:0; border-bottom:2px solid var(--primary); padding-bottom:5px;">Missions en Cours</h3>';
 
-                if (!en_cours.length) html += '<div style="padding:20px; text-align:center; background:white;">Aucune mission active. Repos.</div>';
+                if (!en_cours.length) html += '<div style="padding:20px; text-align:center; background:rgba(255,255,255,0.06); border-radius:16px; border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.5);">Aucune mission active. Repos.</div>';
                 for (let m of en_cours) {
-                    html += '<div style="background:white; border:1px solid var(--primary); padding:20px; border-radius:var(--radius); margin-bottom:15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);"><div style="display:flex; justify-content:space-between; margin-bottom:15px;"><div><b style="font-size:20px;">MISSION #' + m.id + ' : ' + m.catastrophe_titre + '</b></div><div>Statut: <b style="color:var(--primary)">' + m.statut + '</b></div></div><div style="margin-bottom:15px; font-size:14px; background:var(--bg-body); padding:10px; border-radius:5px;"><b>Phase Locale:</b> ' + m.localisation + '<br><b>Directives PC:</b> ' + m.instructions + '</div><div style="display:flex; gap:10px; margin-bottom:15px;"><button class="btn btn-outline" style="border-color:#4dabf7; color:#4dabf7; font-size:12px; padding:6px 12px;" onclick="agentUpdateStatut(' + m.id + ', \'EN_ROUTE\')">En Route</button><button class="btn btn-outline" style="border-color:var(--warning); color:#d08c3e; font-size:12px; padding:6px 12px;" onclick="agentUpdateStatut(' + m.id + ', \'SUR_PLACE\')">Sur Place</button><button class="btn btn-outline" style="border-color:var(--primary); background:var(--primary); color:white; font-size:12px; padding:6px 12px;" onclick="agentUpdateStatut(' + m.id + ', \'TERMINEE\')">Terminer</button></div><div style="display:flex; gap:10px; margin-bottom:10px;"><button class="btn" style="background:#27ae60; color:white; padding:8px; font-size:12px;" onclick="agentShowVictimes(' + m.catastrophe_id + ')">Voir / Ajouter Victimes</button><button class="btn" style="background:#e74c3c; color:white; padding:8px; font-size:12px;" onclick="agentFormBesoin(' + m.id + ', ' + m.catastrophe_id + ')">Signaler un Besoin Urgent</button></div></div>';
+                    html += '<div style="background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); border:1px solid rgba(114,184,142,0.25); padding:20px; border-radius:16px; margin-bottom:15px; box-shadow:0 8px 32px rgba(0,0,0,0.12); color:rgba(255,255,255,0.85);"><div style="display:flex; justify-content:space-between; margin-bottom:15px;"><div><b style="font-size:20px; color:rgba(255,255,255,0.9);">MISSION #' + m.id + ' : ' + m.catastrophe_titre + '</b></div><div>Statut: <b style="color:#72b88e">' + m.statut + '</b></div></div><div style="margin-bottom:15px; font-size:14px; background:rgba(255,255,255,0.04); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.06);"><b>Phase Locale:</b> ' + m.localisation + '<br><b>Directives PC:</b> ' + m.instructions + '</div><div style="display:flex; gap:10px; margin-bottom:15px;"><button class="btn btn-outline" style="border-color:#4dabf7; color:#4dabf7; font-size:12px; padding:6px 12px;" onclick="agentUpdateStatut(' + m.id + ', \'EN_ROUTE\')">En Route</button><button class="btn btn-outline" style="border-color:var(--warning); color:#d08c3e; font-size:12px; padding:6px 12px;" onclick="agentUpdateStatut(' + m.id + ', \'SUR_PLACE\')">Sur Place</button><button class="btn btn-outline" style="border-color:var(--primary); background:var(--primary); color:white; font-size:12px; padding:6px 12px;" onclick="agentUpdateStatut(' + m.id + ', \'TERMINEE\')">Terminer</button></div><div style="display:flex; gap:10px; margin-bottom:10px;"><button class="btn" style="background:#27ae60; color:white; padding:8px; font-size:12px;" onclick="agentShowVictimes(' + m.catastrophe_id + ')">Voir / Ajouter Victimes</button><button class="btn" style="background:#e74c3c; color:white; padding:8px; font-size:12px;" onclick="agentFormBesoin(' + m.id + ', ' + m.catastrophe_id + ')">Signaler un Besoin Urgent</button></div></div>';
                 }
 
                 html += '</div><div style="flex:1;"><h3 style="margin-top:0; border-bottom:2px solid #27ae60; padding-bottom:5px;">Missions Terminees</h3>';
-                if (!terminees.length) html += '<div style="padding:20px; text-align:center; background:white;">Aucun historique de mission.</div>';
+                if (!terminees.length) html += '<div style="padding:20px; text-align:center; background:rgba(255,255,255,0.04); border-radius:16px; border:1px solid rgba(255,255,255,0.06); color:rgba(255,255,255,0.4);">Aucun historique de mission.</div>';
                 for (let m of terminees) {
-                    html += '<div style="background:white; border:1px solid var(--border-color); padding:15px; border-radius:var(--radius); margin-bottom:15px; opacity: 0.8;"><div style="font-weight:bold;">MISSION #' + m.id + ' : ' + m.catastrophe_titre + '</div><div style="font-size:12px; color:var(--text-muted);">Terminee. Localisation: ' + m.localisation + '</div></div>';
+                    html += '<div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:15px; border-radius:16px; margin-bottom:15px; opacity: 0.7; color:rgba(255,255,255,0.7);"><div style="font-weight:bold;">MISSION #' + m.id + ' : ' + m.catastrophe_titre + '</div><div style="font-size:12px; color:rgba(255,255,255,0.4);">Terminee. Localisation: ' + m.localisation + '</div></div>';
                 }
 
                 container.innerHTML = html + '</div></div>';
@@ -2900,7 +3062,7 @@
         // CITOYEN DASHBOARD
         // ==========================================
         async function citoyenLoadForm(container) {
-            container.innerHTML = '<div style="background:white; padding:30px; border-radius:var(--radius); border:1px solid var(--border-color); max-width:600px; margin:0 auto;"><div style="font-weight:800; font-size:22px; color:var(--primary); margin-bottom:10px;">Formulaire de Signalement Citoyen</div><div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Utilisez ce formulaire avec responsabilite. L\'IA analyse systematiquement les demandes. Les fausses rumeurs reduiront votre Trust Score.</div><form onsubmit="submitCitoyen(event)"><div class="form-group"><label class="form-label">Type d\'Evenement</label><select class="form-control" id="c_type"><option>Seisme</option><option>Incendie</option><option>Inondation</option><option>Tempete</option><option>Accident industriel chimique</option><option>Explosion</option></select></div><div class="form-group"><label class="form-label">Zone Wilaya</label><select class="form-control" id="c_zone"><option value="NORD">Region NORD (Alger..)</option><option value="EST">EST (Constantine..)</option><option value="OUEST">OUEST (Oran..)</option><option value="SUD">SUD (Ouargla..)</option><option value="CENTRE">CENTRE</option></select></div><div class="form-group"><label class="form-label">Position Exacte</label><input type="text" class="form-control" id="c_loc" placeholder="Nom de rue, quartier, point de repere" required></div><div class="form-group"><label class="form-label">Description precise</label><textarea class="form-control" id="c_desc" rows="4" placeholder="Mentionnez les signes visibles, eventuels blesses..." required></textarea></div><button class="btn btn-primary" type="submit" style="width:100%">Soumettre le Rapport Securise</button></form></div>';
+            container.innerHTML = '<div style="background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:30px; border-radius:20px; border:1px solid rgba(255,255,255,0.1); max-width:600px; margin:0 auto; box-shadow:0 8px 32px rgba(0,0,0,0.15);"><div style="font-weight:800; font-size:22px; color:#72b88e; margin-bottom:10px;">Formulaire de Signalement Citoyen</div><div style="font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:20px;">Utilisez ce formulaire avec responsabilite. L\'IA analyse systematiquement les demandes. Les fausses rumeurs reduiront votre Trust Score.</div><form onsubmit="submitCitoyen(event)"><div class="form-group"><label class="form-label">Type d\'Evenement</label><select class="form-control" id="c_type"><option>Seisme</option><option>Incendie</option><option>Inondation</option><option>Tempete</option><option>Accident industriel chimique</option><option>Explosion</option></select></div><div class="form-group"><label class="form-label">Zone Wilaya</label><select class="form-control" id="c_zone"><option value="NORD">Region NORD (Alger..)</option><option value="EST">EST (Constantine..)</option><option value="OUEST">OUEST (Oran..)</option><option value="SUD">SUD (Ouargla..)</option><option value="CENTRE">CENTRE</option></select></div><div class="form-group"><label class="form-label">Position Exacte</label><input type="text" class="form-control" id="c_loc" placeholder="Nom de rue, quartier, point de repere" required></div><div class="form-group"><label class="form-label">Description precise</label><textarea class="form-control" id="c_desc" rows="4" placeholder="Mentionnez les signes visibles, eventuels blesses..." required></textarea></div><button class="btn btn-primary" type="submit" style="width:100%">Soumettre le Rapport Securise</button></form></div>';
         }
         window.submitCitoyen = async (e) => {
             e.preventDefault();
@@ -2976,31 +3138,32 @@
 
     <!-- CHATBOT UI -->
     <div id="c-bot-bubble" onclick="document.getElementById('c-bot-panel').classList.toggle('hidden')"
-        style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,0.3); cursor:pointer; z-index:9999; font-size:24px;">
+        style="position:fixed; bottom:20px; right:20px; width:60px; height:60px; border-radius:50%; background:rgba(45,90,63,0.8); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); color:white; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 30px rgba(0,0,0,0.3); cursor:pointer; z-index:9999; font-size:24px; border:1px solid rgba(114,184,142,0.3); transition:all 0.3s ease;">
         🤖
     </div>
     <div id="c-bot-panel" class="hidden"
-        style="position:fixed; bottom:90px; right:20px; width:380px; max-width:90%; height:500px; background:white; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,0.25); z-index:9998; display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--border-color);">
+        style="position:fixed; bottom:90px; right:20px; width:380px; max-width:90%; height:500px; background:rgba(12,20,15,0.82); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-radius:24px; box-shadow:0 25px 60px rgba(0,0,0,0.45); z-index:9998; display:flex; flex-direction:column; overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
         <div
-            style="background:linear-gradient(135deg, var(--primary), var(--primary-light)); color:white; padding:18px 20px; font-weight:800; font-size:16px; display:flex; align-items:center; gap:10px;">
+            style="background:rgba(114,184,142,0.15); border-bottom:1px solid rgba(255,255,255,0.08); color:white; padding:18px 20px; font-weight:800; font-size:16px; display:flex; align-items:center; gap:10px;">
             <span style="font-size:22px;">🤖</span> Assistance IA CATASTROPI
             <button onclick="document.getElementById('c-bot-panel').classList.add('hidden')"
-                style="margin-left:auto; background:rgba(255,255,255,0.2); border:none; border-radius:50%; width:28px; height:28px; color:white; cursor:pointer; font-size:16px;">×</button>
+                style="margin-left:auto; background:rgba(255,255,255,0.1); border:none; border-radius:50%; width:28px; height:28px; color:white; cursor:pointer; font-size:16px;">×</button>
         </div>
         <div id="c-bot-msgs"
-            style="flex:1; padding:15px; overflow-y:auto; background:#f9f9f9; display:flex; flex-direction:column; gap:10px;">
+            style="flex:1; padding:15px; overflow-y:auto; background:transparent; display:flex; flex-direction:column; gap:10px;">
             <div
-                style="background:#e2e2e2; padding:12px 16px; border-radius:16px 16px 16px 4px; align-self:flex-start; max-width:85%; font-size:14px; line-height:1.5;">
+                style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); padding:12px 16px; border-radius:16px 16px 16px 4px; align-self:flex-start; max-width:85%; font-size:14px; line-height:1.5; border:1px solid rgba(255,255,255,0.06);">
                 Je suis l'assistant IA CATASTROPI. Je peux vous aider avec:<br>• <b>consignes</b>
                 seisme/incendie/inondation<br>• <b>traitement</b> brulure/fracture<br>• <b>victime</b> [nom] pour
                 chercher<br>• <b>aide</b> pour la liste complete</div>
         </div>
-        <div style="padding:12px; background:white; border-top:1px solid #eee; display:flex; gap:10px;">
+        <div
+            style="padding:12px; background:rgba(255,255,255,0.04); border-top:1px solid rgba(255,255,255,0.06); display:flex; gap:10px;">
             <input id="c-bot-input"
-                style="flex:1; border:2px solid var(--border-color); border-radius:24px; padding:10px 18px; outline:none; font-size:14px;"
+                style="flex:1; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06); color:white; border-radius:24px; padding:10px 18px; outline:none; font-size:14px;"
                 placeholder="Ex: consignes incendie" onkeypress="if(event.key==='Enter') sendChat()">
             <button
-                style="border:none; background:var(--primary); color:white; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:16px;"
+                style="border:none; background:rgba(114,184,142,0.3); border:1px solid rgba(114,184,142,0.4); color:white; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:16px;"
                 onclick="sendChat()">➤</button>
         </div>
     </div>
@@ -3011,12 +3174,12 @@
             if (!msg) return;
 
             const msgs = document.getElementById('c-bot-msgs');
-            msgs.innerHTML += '<div style="background:var(--primary); color:white; padding:12px 16px; border-radius:16px 16px 4px 16px; align-self:flex-end; max-width:85%; font-size:14px;">' + msg + '</div>';
+            msgs.innerHTML += '<div style="background:rgba(114,184,142,0.2); color:white; padding:12px 16px; border-radius:16px 16px 4px 16px; align-self:flex-end; max-width:85%; font-size:14px; border:1px solid rgba(114,184,142,0.3);">' + msg + '</div>';
             inp.value = '';
             msgs.scrollTo(0, msgs.scrollHeight);
 
             // Typing indicator
-            msgs.innerHTML += '<div id="typing-ind" style="background:#e2e2e2; padding:10px 16px; border-radius:16px; align-self:flex-start; font-size:14px; color:var(--text-muted);"><span class="spinner">⏳</span> Analyse en cours...</div>';
+            msgs.innerHTML += '<div id="typing-ind" style="background:rgba(255,255,255,0.06); padding:10px 16px; border-radius:16px; align-self:flex-start; font-size:14px; color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.06);"><span class="spinner">⏳</span> Analyse en cours...</div>';
             msgs.scrollTo(0, msgs.scrollHeight);
 
             try {
@@ -3024,12 +3187,12 @@
                 const typing = document.getElementById('typing-ind');
                 if (typing) typing.remove();
                 let respText = r.response.replace(/\n/g, '<br>');
-                msgs.innerHTML += '<div style="background:#e2e2e2; padding:12px 16px; border-radius:16px 16px 16px 4px; align-self:flex-start; max-width:85%; font-size:14px; line-height:1.5;">' + respText + '</div>';
+                msgs.innerHTML += '<div style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); padding:12px 16px; border-radius:16px 16px 16px 4px; align-self:flex-start; max-width:85%; font-size:14px; line-height:1.5; border:1px solid rgba(255,255,255,0.06);">' + respText + '</div>';
                 msgs.scrollTo(0, msgs.scrollHeight);
             } catch (e) {
                 const typing = document.getElementById('typing-ind');
                 if (typing) typing.remove();
-                msgs.innerHTML += '<div style="background:#ffdada; color:red; padding:12px 16px; border-radius:16px; align-self:flex-start; max-width:85%; font-size:14px;">Erreur de connexion a l\'IA.</div>';
+                msgs.innerHTML += '<div style="background:rgba(192,57,43,0.15); color:#e74c3c; padding:12px 16px; border-radius:16px; align-self:flex-start; max-width:85%; font-size:14px; border:1px solid rgba(192,57,43,0.2);">Erreur de connexion a l\'IA.</div>';
             }
         };
     </script>
