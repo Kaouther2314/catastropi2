@@ -385,6 +385,23 @@ def login():
         'user': user.to_dict()
     }), 200
 
+@app.route('/api/me', methods=['PUT'])
+@jwt_required()
+def update_profile():
+    user = get_current_user()
+    if not user: return jsonify({'message': 'Utilisateur introuvable'}), 404
+    
+    data = request.json
+    if 'nom' in data and data['nom']: user.nom = data['nom']
+    if 'email' in data and data['email']: user.email = data['email']
+    if 'password' in data and data['password']: user.password = generate_password_hash(data['password'])
+    if 'competence' in data: user.competence = data['competence']
+    if 'localisation_actuelle' in data: user.localisation_actuelle = data['localisation_actuelle']
+    
+    db.session.commit()
+    log_action(user.id, "Mise à jour du profil utilisateur")
+    return jsonify({'message': 'Profil mis à jour', 'user': user.to_dict()}), 200
+
 # --- 2. ADMIN: UTILISATEURS ET LOGS ---
 @app.route('/api/admin/users', methods=['GET', 'POST'])
 @admin_required

@@ -461,39 +461,21 @@
         }
 
         .stats-section {
-            padding: 60px 6%;
+            padding: 12px 6% 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+            gap: 16px;
         }
 
-        .stats-section .stat-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 28px;
-            text-align: center;
-        }
-
-        .stats-section .stat-num {
-            font-size: 40px;
-            font-weight: 900;
-            color: #72b88e;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            margin-bottom: 6px;
-        }
-
-        .stats-section .stat-text {
-            font-size: 12px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        /* Sur mobile, on les empile par 2 */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .board-controls {
@@ -559,8 +541,8 @@
 
         .board-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 500px;
+            grid-template-columns: 1fr 0.7fr;
+            min-height: 50px;
         }
 
         .board-list-wrapper {
@@ -568,8 +550,10 @@
         }
 
         .board-list {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            padding: 24px;
         }
 
         .board-detail {
@@ -1088,41 +1072,42 @@
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 6px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
         }
 
         .stat-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .stat-num {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 900;
             color: #72b88e;
-            margin-bottom: 8px;
+            margin-bottom: 2px;
             line-height: 1;
         }
 
         .stat-text {
-            font-size: 13px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.95);
+            font-size: 9px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.7);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .modal-overlay {
@@ -1888,10 +1873,10 @@
 
                 // Easing pour l'agrandissement de la vidéo sur mobile et desktop
                 const isMobile = window.innerWidth <= 768;
-                const startW = isMobile ? 320 : 320;
-                const startH = isMobile ? 420 : 420;
-                const endW = window.innerWidth;
-                const endH = window.innerHeight;
+                const startW = 320;
+                const startH = 420;
+                const endW = isMobile ? window.innerWidth * 0.9 : 400;
+                const endH = isMobile ? (endW * (500 / 700)) : 500;
 
                 const easeProgress = Math.pow(scrollProgress, 1.2); // Une petite courbe d'accélération
 
@@ -1904,11 +1889,13 @@
                 }
 
                 if (mediaWrapper) {
-                    const radius = 20 * (1 - easeProgress);
+                    // Garder le border-radius constant (ou léger adjustement) puisqu'il n'est plus plein écran
+                    const radius = 20;
                     mediaWrapper.style.borderRadius = radius + 'px';
                 }
 
-                if (bgVideo) bgVideo.style.opacity = Math.max(0, 1 - scrollProgress * 1.5);
+                // Garder le fond fixe visible (on l'assombrit juste un peu au scroll)
+                if (bgVideo) bgVideo.style.opacity = Math.max(0.5, 1 - scrollProgress * 1.5);
                 if (scrollHint) scrollHint.style.opacity = Math.max(0, 1 - scrollProgress * 3);
 
                 // Animation des mots "CATAS", "TROPI"
@@ -1962,11 +1949,24 @@
             const list = document.getElementById('boardList');
             if (!list) return;
             if (!alerts.length) {
-                list.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.3);font-size:14px;">Aucune alerte active dans cette zone.</div>';
+                list.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.3);font-size:14px;grid-column:1/-1;">Aucune alerte active dans cette zone.</div>';
                 return;
             }
             const riskColors = { CRITIQUE: '#c0392b', ELEVE: '#e74c3c', MOYEN: '#e67e22', FAIBLE: '#27ae60' };
-            list.innerHTML = alerts.map((a, i) => '<div onclick="showBoardDetail(' + i + ')" style="padding:20px 24px; border-bottom:1px solid rgba(255,255,255,0.06);display:flex; align-items:center; gap:16px; cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.03)\'" onmouseout="this.style.background=\'transparent\'"><div style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:' + (riskColors[(a.niveau_risque || '').toUpperCase()] || '#fff') + ';box-shadow:0 0 8px ' + (riskColors[(a.niveau_risque || '').toUpperCase()] || '#fff') + ';"></div><div style="flex:1;min-width:0;"><div style="font-weight:800;color:white;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + a.type + '</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;">' + a.localisation + ' — ' + a.zone + '</div></div><div style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:' + ((riskColors[(a.niveau_risque || '').toUpperCase()] || '#555') + '22') + ';color:' + (riskColors[(a.niveau_risque || '').toUpperCase()] || '#aaa') + ';">' + (a.niveau_risque || '?') + '</div></div>').join('');
+            list.innerHTML = alerts.map((a, i) => {
+                const rc = riskColors[(a.niveau_risque || '').toUpperCase()] || '#72b88e';
+                return '<div onclick="showBoardDetail(' + i + ')" style="padding:20px; border-radius:16px; border:1px solid ' + rc + '44; background:rgba(255,255,255,0.04); box-shadow:0 0 12px ' + rc + '22, inset 0 0 12px ' + rc + '08; cursor:pointer; transition:all 0.3s ease;" onmouseover="this.style.boxShadow=\'0 0 20px ' + rc + '44, inset 0 0 20px ' + rc + '11\'; this.style.borderColor=\'' + rc + '88\'; this.style.transform=\'translateY(-3px)\'" onmouseout="this.style.boxShadow=\'0 0 12px ' + rc + '22, inset 0 0 12px ' + rc + '08\'; this.style.borderColor=\'' + rc + '44\'; this.style.transform=\'translateY(0)\'">' +
+                    '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">' +
+                        '<div style="width:10px;height:10px;border-radius:50%;background:' + rc + ';box-shadow:0 0 10px ' + rc + ';"></div>' +
+                        '<div style="font-weight:900;color:white;font-size:16px;">' + a.type + '</div>' +
+                    '</div>' +
+                    '<div style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:8px;">📍 ' + a.localisation + ' — ' + a.zone + '</div>' +
+                    '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+                        '<div style="font-size:11px;color:rgba(255,255,255,0.4);">' + new Date(a.date_declaration).toLocaleDateString() + '</div>' +
+                        '<div style="font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;background:' + rc + '22;color:' + rc + ';border:1px solid ' + rc + '44;">' + (a.niveau_risque || '?') + '</div>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
         }
 
         function showBoardDetail(idx) {
@@ -2315,6 +2315,7 @@
                 addNavBtn('Gestion Utilisateurs', () => setDashView('Gestion Utilisateurs', adminLoadUsers));
                 addNavBtn('Logs & Activité', () => setDashView('Historique des Logs', adminLoadLogs));
                 addNavBtn('Statistiques IA', () => setDashView('Statistiques', adminLoadStats));
+                addNavBtn('Mon Profil', () => setDashView('Mon Profil', loadProfileView));
                 nav.firstElementChild.click();
             }
             else if (role === 'RESPONSABLE') {
@@ -2322,17 +2323,20 @@
                 addNavBtn('Historique Analyses IA', () => setDashView('Historique des Analyses IA', respLoadIAAnalysis));
                 addNavBtn('Catastrophes Publiees', () => setDashView('Gestion des Catastrophes', respLoadPublished));
                 addNavBtn('Besoins Agents', () => setDashView('Besoins des Agents', respLoadBesoins));
+                addNavBtn('Mon Profil', () => setDashView('Mon Profil', loadProfileView));
                 nav.firstElementChild.click();
             }
             else if (role === 'AGENT') {
                 addNavBtn('Mes Missions', () => setDashView('Missions Terrain', agentLoadMissions));
                 addNavBtn('Tableau Public', () => setDashView('Cartographie Publique', loadGlobalMap));
+                addNavBtn('Mon Profil', () => setDashView('Mon Profil', loadProfileView));
                 nav.firstElementChild.click();
             }
             else if (role === 'CITOYEN') {
                 addNavBtn('Nouveau Signalement', () => setDashView('Signaler un Evenement', citoyenLoadForm));
                 addNavBtn('Mon Historique', () => setDashView('Historique & Fiabilite', citoyenLoadHistory));
                 addNavBtn('Cartographie Risques', () => setDashView('Carte des Risques', loadGlobalMap));
+                addNavBtn('Mon Profil', () => setDashView('Mon Profil', loadProfileView));
                 nav.firstElementChild.click();
             }
         }
@@ -2341,6 +2345,65 @@
             btn.innerHTML = '<svg class="icon-sm" style="color:rgba(255,255,255,0.5)"><path d="M9 18l6-6-6-6"/></svg> ' + text;
             btn.onclick = fn; document.getElementById('dash-nav').appendChild(btn);
         }
+
+        async function loadProfileView(container) {
+            let initial = (user.nom || '?').charAt(0).toUpperCase();
+            let scoreStr = user.role === 'CITOYEN' ? '<div style="margin-top:20px; width:100%; padding:15px; background:rgba(255,255,255,0.05); border-radius:12px; text-align:center;"><div style="font-size:12px; color:rgba(255,255,255,0.4); font-weight:800; letter-spacing:1px;">TRUST SCORE</div><div style="font-size:32px; font-weight:900; color:var(--primary);">' + (user.fiabilite_score || 50) + ' <span style="font-size:16px; color:rgba(255,255,255,0.3);">/100</span></div></div>' : '';
+            let dateStr = user.date_creation ? new Date(user.date_creation).toLocaleDateString() : new Date().toLocaleDateString();
+
+            let extraInfo = '';
+            if (user.competence) extraInfo += '<div style="display:flex; justify-content:space-between; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="color:rgba(255,255,255,0.5);">Compétences</span> <strong style="color:white; text-align:right;">' + user.competence + '</strong></div>';
+            if (user.localisation_actuelle) extraInfo += '<div style="display:flex; justify-content:space-between; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="color:rgba(255,255,255,0.5);">Localisation</span> <strong style="color:white; text-align:right;">' + user.localisation_actuelle + '</strong></div>';
+
+            container.innerHTML = '<div style="max-width:500px; margin:0 auto; padding:40px; background:rgba(255,255,255,0.06); backdrop-filter:blur(12px); border-radius:20px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 8px 32px rgba(0,0,0,0.2); display:flex; flex-direction:column; align-items:center; position:relative;">' +
+                '<button onclick="openEditProfile()" class="btn-act" style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.1); padding:6px 12px; border-radius:30px;">✏️ Modifier</button>' +
+                '<div style="width:100px; height:100px; border-radius:50%; background:linear-gradient(135deg, var(--primary), var(--primary-light)); display:flex; align-items:center; justify-content:center; font-size:40px; font-weight:900; color:white; box-shadow:0 4px 15px rgba(0,0,0,0.3); margin-bottom:20px;">' + initial + '</div>' +
+                '<h2 style="margin:0; font-size:26px; font-weight:900; color:white; text-align:center;">' + user.nom + '</h2>' +
+                '<div style="color:var(--primary); font-weight:800; font-size:14px; margin-top:5px; margin-bottom:30px; letter-spacing:2px; text-align:center;">' + user.role + '</div>' +
+                '<div style="width:100%; display:flex; flex-direction:column; gap:15px; font-size:14px;">' +
+                '<div style="display:flex; justify-content:space-between; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="color:rgba(255,255,255,0.5);">Email</span> <strong style="color:white;">' + user.email + '</strong></div>' +
+                extraInfo +
+                '<div style="display:flex; justify-content:space-between; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="color:rgba(255,255,255,0.5);">Statut du Compte</span> <strong style="color:var(--primary);">Actif</strong></div>' +
+                '<div style="display:flex; justify-content:space-between; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08);"><span style="color:rgba(255,255,255,0.5);">Membre depuis</span> <strong style="color:white;">' + dateStr + '</strong></div>' +
+                '</div>' +
+                scoreStr +
+                '</div>';
+        }
+
+        window.openEditProfile = () => {
+            const m = document.getElementById('modal-content-inject');
+            m.innerHTML = '<div class="modal-header">Modifier le Profil</div><form onsubmit="submitEditProfile(event)" style="display:flex;flex-direction:column;gap:12px;"><label class="form-label-dark" style="margin-bottom:-8px">Nom complet</label><input id="ep_nom" class="form-control" required value="' + user.nom + '"><label class="form-label-dark" style="margin-bottom:-8px">Adresse E-mail</label><input id="ep_email" type="email" class="form-control" required value="' + user.email + '"><label class="form-label-dark" style="margin-bottom:-8px">Nouveau mot de passe</label><input id="ep_pwd" type="password" class="form-control" placeholder="(Laisser vide pour conserver)"><label class="form-label-dark" style="margin-bottom:-8px">Compétences (Ex: Secourisme)</label><input id="ep_comp" class="form-control" placeholder="(Optionnel)" value="' + (user.competence || '') + '"><label class="form-label-dark" style="margin-bottom:-8px">Localisation actuelle</label><input id="ep_loc" class="form-control" placeholder="(Optionnel)" value="' + (user.localisation_actuelle || '') + '"><button class="btn btn-primary" type="submit" id="btn-ep-submit" style="margin-top:10px;">Enregistrer les modifications</button></form>';
+            document.getElementById('hub-modal').classList.remove('hidden');
+        };
+
+        window.submitEditProfile = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-ep-submit');
+            btn.disabled = true; btn.textContent = 'Enregistrement...';
+            try {
+                const data = {
+                    nom: document.getElementById('ep_nom').value,
+                    email: document.getElementById('ep_email').value,
+                    competence: document.getElementById('ep_comp').value,
+                    localisation_actuelle: document.getElementById('ep_loc').value
+                };
+                if (document.getElementById('ep_pwd').value) data.password = document.getElementById('ep_pwd').value;
+
+                const res = await api('/me', 'PUT', data);
+                user = res.user;
+                localStorage.setItem('c_user', JSON.stringify(user));
+                document.getElementById('hub-modal').classList.add('hidden');
+                document.getElementById('auth-name').innerText = user.nom;
+                showToast('Profil mis à jour avec succès !');
+                if (document.getElementById('dash-title').innerText === 'Mon Profil') {
+                    loadProfileView(document.getElementById('dash-content'));
+                }
+            } catch (err) {
+                showToast(err.message, true);
+                btn.disabled = false; btn.textContent = 'Enregistrer les modifications';
+            }
+        };
+
 
         // ==========================================
         // ADMIN DASHBOARD
