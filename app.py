@@ -723,7 +723,9 @@ def accept_analysis(signal_id):
     resp_user = get_current_user()
     analysis.status = "accepted"
     analysis.responsable_id = resp_user.id if resp_user else None
-    catastrophe.statut = "Validé par IA"
+    catastrophe.statut = "PUBLIEE"
+    catastrophe.date_publication = datetime.utcnow()
+    catastrophe.publie_par_id = resp_user.id if resp_user else None
     
     plan = {
         "niveau_risque": analysis.risk_level,
